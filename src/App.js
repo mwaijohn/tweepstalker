@@ -1,7 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
 
+import axios from 'axios'
+
 function App() {
+
+  const apiPath = "http://localhost:3001"
+  const login = () => {
+    (async () => {
+
+      try {
+        //OAuth Step 1
+        const response = await axios({
+          url: `${apiPath}/twitter/oauth/request_token`,
+          method: 'POST'
+        });
+
+        const { oauth_token } = response.data;
+        //Oauth Step 2
+        window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
+      } catch (error) {
+        console.error(error);
+      }
+
+    })();
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +40,8 @@ function App() {
         >
           Learn React
         </a>
+        <br></br>
+        <button onClick={login}>Login With Twitter</button>
       </header>
     </div>
   );
