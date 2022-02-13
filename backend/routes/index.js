@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
-// var twitterClient = require('../src/twitterclient')
-const jwt = require('jsonwebtoken')
+var twitterClient = require('../src/twitterclient')
+var getStatuses = require('../src/client')
 
+const jwt = require('jsonwebtoken')
 const oauthCallback = process.env.FRONTEND_URL;
 const oauth = require('../src/lib/oauth-promise')(oauthCallback);
 const COOKIE_NAME = 'oauth_token';
@@ -57,7 +58,7 @@ router.post('/twitter/oauth/access_token', async (req, res) => {
     var user = {
       "access_token": oauth_access_token,
       "access_token_secret": oauth_access_token_secret,
-      "user": JSON.stringify(response.data)
+      "user": response.data
     }
 
     const accessToken = generateAccessToken(user)
@@ -111,6 +112,26 @@ router.get("/twitter/users/profile_banner", authenticateToken ,async (req, res) 
   } catch (error) {
     res.status(403).json({ message: `Missing, invalid, or expired tokens ${JSON.stringify(tokens)}` });
   }
+
+});
+
+router.get("/statuses", authenticateToken ,async (req, res) => {
+  try {
+
+    const { access_token, access_token_secret, user} = req.user;
+    // construct twitter client
+    let client = twitterClient(access_token,access_token_secret)
+
+    // get statuses
+    let data  = getStatuses(user.id,client)
+
+    res.json(data);
+    
+  } catch (error) {
+        res.status(403).json({ message: `Missing, invalid, or expired tokens ${JSON.stringify(tokens)}` });
+
+  }
+
 
 });
 

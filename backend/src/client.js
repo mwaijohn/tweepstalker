@@ -1,7 +1,4 @@
-var fs = require('fs')
-var twitterClient = require('./twitterclient.js')
-
-const getStatuses = async (screen_name) => {
+const getStatuses = async (user_id, twitterClient) => {
 
     let dataArray = []
     let max_id = null
@@ -11,9 +8,9 @@ const getStatuses = async (screen_name) => {
         for (var i = 6; i > 0; i--) {
             //get user time line
             if (max_id == null) {
-                payload = { "screen_name": screen_name, "include_rts": false }
+                payload = { "user_id": user_id, "include_rts": false }
             } else {
-                payload = { "screen_name": screen_name, "include_rts": false, "max_id": max_id }
+                payload = { "user_id": user_id, "include_rts": false, "max_id": max_id }
             }
             var statuses = await twitterClient.tweets.statusesUserTimeline(payload)
             max_id = statuses[(statuses.length - 1)]['id']
