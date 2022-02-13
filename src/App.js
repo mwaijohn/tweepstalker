@@ -26,9 +26,9 @@ function App() {
           });
 
           let data = response.data
-          localStorage.setItem("jwtToken",data.accessToken)
-          localStorage.setItem("refreshToken",data.accessToken)
-          localStorage.setItem("user",JSON.parse(data.user))
+          localStorage.setItem("jwtToken", data.accessToken)
+          localStorage.setItem("refreshToken", data.accessToken)
+          localStorage.setItem("user", JSON.parse(data.user))
 
           window.location = "/"
 
@@ -52,6 +52,18 @@ function App() {
         setImageUrl(profile_image_url_https);
         setStatus(status.text);
         setUrl(entities.url.urls[0].expanded_url);
+      } catch (error) {
+        console.error(error);
+      }
+
+      try {
+        const access_token = localStorage.getItem('jwtToken')
+        axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
+        //Authenticated Resource Access
+        const { data: { name, profile_image_url_https, status, entities } } = await axios({
+          url: `${apiPath}/statuses`,
+          method: 'GET'
+        });
       } catch (error) {
         console.error(error);
       }
@@ -94,7 +106,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      
+
         <button onClick={login}>Login With Twitter</button>
         <img src={logo} className="App-logo" alt="logo" />
         {!isLoggedIn &&

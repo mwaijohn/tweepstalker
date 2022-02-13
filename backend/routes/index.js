@@ -101,7 +101,7 @@ function authenticateToken(req, res, next) {
 }
 
 //Authenticated resource access
-router.get("/twitter/users/profile_banner", authenticateToken ,async (req, res) => {
+router.get("/twitter/users/profile_banner", authenticateToken, async (req, res) => {
 
   try {
     // const oauth_token = req.cookies['cookieName'];
@@ -115,24 +115,21 @@ router.get("/twitter/users/profile_banner", authenticateToken ,async (req, res) 
 
 });
 
-router.get("/statuses", authenticateToken ,async (req, res) => {
+router.get("/statuses", authenticateToken, async (req, res) => {
   try {
 
-    const { access_token, access_token_secret, user} = req.user;
+    const { access_token, access_token_secret, user } = req.user;
     // construct twitter client
-    let client = twitterClient(access_token,access_token_secret)
+    let client = twitterClient(access_token, access_token_secret)
 
     // get statuses
-    let data  = getStatuses(user.id,client)
+    let data = await getStatuses(user.id, client)
 
     res.json(data);
-    
+
   } catch (error) {
-        res.status(403).json({ message: `Missing, invalid, or expired tokens ${JSON.stringify(tokens)}` });
-
+    res.status(403).json({ message: `Missing, invalid, or expired tokens ${JSON.stringify(tokens)}` });
   }
-
-
 });
 
 module.exports = router;
