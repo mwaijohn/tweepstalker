@@ -51,7 +51,7 @@ function App() {
         setName(name);
         setImageUrl(profile_image_url_https);
         setStatus(status.text);
-        setUrl(entities.url.urls[0].expanded_url);
+        //setUrl(entities.url.urls[0].expanded_url);
       } catch (error) {
         console.error(error);
       }
@@ -60,10 +60,11 @@ function App() {
         const access_token = localStorage.getItem('jwtToken')
         axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
         //Authenticated Resource Access
-        const { data: { name, profile_image_url_https, status, entities } } = await axios({
+        const data = await axios({
           url: `${apiPath}/statuses`,
           method: 'GET'
         });
+        console.log(data)
       } catch (error) {
         console.error(error);
       }

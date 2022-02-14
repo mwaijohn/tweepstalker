@@ -28,6 +28,8 @@ router.post('/twitter/oauth/request_token', async (req, res) => {
   const { oauth_token, oauth_token_secret } = await oauth.getOAuthRequestToken();
   main_oauth_token = oauth_token
   tokens[oauth_token] = { oauth_token_secret };
+  console.log("request_token",oauth_token, oauth_token_secret)
+
   res.json({ oauth_token });
 });
 
@@ -52,6 +54,7 @@ router.post('/twitter/oauth/access_token', async (req, res) => {
 
     const { oauth_access_token, oauth_access_token_secret } = await oauth.getOAuthAccessToken(oauth_token, oauth_token_secret, oauth_verifier);
     tokens[oauth_token] = { ...tokens[oauth_token], oauth_access_token, oauth_access_token_secret };
+    console.log("access_token",oauth_access_token, oauth_access_token_secret)
 
     const response = await oauth.getProtectedResource("https://api.twitter.com/1.1/account/verify_credentials.json", "GET", oauth_access_token, oauth_access_token_secret);
 
@@ -93,7 +96,7 @@ function authenticateToken(req, res, next) {
   if (token == null) return res.sendStatus(401)
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    console.log(err)
+    // console.log(err)
     if (err) return res.sendStatus(403)
     req.user = user
     next()
@@ -107,6 +110,7 @@ router.get("/twitter/users/profile_banner", authenticateToken, async (req, res) 
     // const oauth_token = req.cookies['cookieName'];
 
     const { access_token, access_token_secret } = req.user;
+    console.log("profile_banner",access_token, access_token_secret)
     const response = await oauth.getProtectedResource("https://api.twitter.com/1.1/account/verify_credentials.json", "GET", access_token, access_token_secret);
     res.json(JSON.parse(response.data));
   } catch (error) {
@@ -119,16 +123,21 @@ router.get("/statuses", authenticateToken, async (req, res) => {
   try {
 
     const { access_token, access_token_secret, user } = req.user;
+    const userObject = JSON.parse(user)
     // construct twitter client
     let client = twitterClient(access_token, access_token_secret)
 
-    // get statuses
-    let data = await getStatuses(user.id, client)
+    console.log(access_token, access_token_secret)
+    // console.log("user object",JSON.stringify(user))
 
-    res.json(data);
+    // get statuses
+    let data = await getStatuses(userObject.screen_name, client)
+    console.log()
+    // res.json({"jhjh":"kjkjk"});
+    res.json(data)
 
   } catch (error) {
-    res.status(403).json({ message: `Missing, invalid, or expired tokens ${JSON.stringify(tokens)}` });
+    res.status(403).json({ message: `Missing, invalid, or expired tokens` });
   }
 });
 

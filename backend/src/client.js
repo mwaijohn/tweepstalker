@@ -1,4 +1,4 @@
-const getStatuses = async (user_id, twitterClient) => {
+const getStatuses = async (screen_name, twitterClient) => {
 
     let dataArray = []
     let max_id = null
@@ -8,9 +8,9 @@ const getStatuses = async (user_id, twitterClient) => {
         for (var i = 6; i > 0; i--) {
             //get user time line
             if (max_id == null) {
-                payload = { "user_id": user_id, "include_rts": false }
+                payload = { "screen_name": screen_name, "include_rts": false }
             } else {
-                payload = { "user_id": user_id, "include_rts": false, "max_id": max_id }
+                payload = { "screen_name": screen_name, "include_rts": false, "max_id": max_id }
             }
             var statuses = await twitterClient.tweets.statusesUserTimeline(payload)
             max_id = statuses[(statuses.length - 1)]['id']
@@ -19,7 +19,7 @@ const getStatuses = async (user_id, twitterClient) => {
             dataArray.unshift(...statuses)
         }
     } catch (error) {
-        console.log(error)
+        console.log("API Error: ",error)
     }
 
 
@@ -27,8 +27,14 @@ const getStatuses = async (user_id, twitterClient) => {
     //     if (err) return console.log(err);
     //     console.log('Note added',dataArray.length);
     // });
-
+    // console.log(JSON.stringify(dataArray))
     return dataArray
 }
+
+// var twitterClient = require('./twitterclient')
+
+// var client = twitterClient("jhjhj","jhjhjhj")
+
+// getStatuses("mjohn_5",client)
 
 module.exports = getStatuses
