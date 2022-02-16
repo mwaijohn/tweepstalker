@@ -1,11 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios'
 import queryString from 'query-string';
 import Home from './Home';
 
-function App() {
+function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState();
   const [imageUrl, setImageUrl] = useState();
@@ -106,28 +104,10 @@ function App() {
     })();
   }
   return (
-    <div className="App">
-      <header className="App-header">
-
-        <button onClick={login}>Login With Twitter</button>
-        <img src={logo} className="App-logo" alt="logo" />
-        {!isLoggedIn &&
-          <img className='signin-btn' onClick={login} alt='Twitter login button' src='https://assets.klaudsol.com/twitter.png' />
-        }
-
-        {isLoggedIn &&
-          <div>
-            <div><img alt='User profile' src={imageUrl} /></div>
-            <div>Name: {name}</div>
-            <div>URL: {url}</div>
-            <div>Status: {status}</div>
-            <button className='signout-btn' onClick={logout}>Sign Out</button>
-            <Home/>
-          </div>
-        }
-      </header>
+    <div className="flex w-full justify-center items-center h-28">
+        <img className='signin-btn' onClick={login} alt='Twitter login button' src='https://assets.klaudsol.com/twitter.png' />
     </div>
   );
 }
 
-export default App;
+export default Login;

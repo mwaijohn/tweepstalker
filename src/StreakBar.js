@@ -1,47 +1,41 @@
 import React from 'react'
 import { Bar } from "react-chartjs-2";
+import { Doughnut } from 'react-chartjs-2';
+
 
 function StreakBar() {
+    const data = {
+        datasets: [
+            {
+                data: [30, 40, 50],
+                backgroundColor: [
+                    "green",
+                    "red",
+                    "blue"
+                ],
+                borderWidth: 8,
+                // borderColor: white,
+                // hoverBorderColor: white
+            }
+        ],
+        labels: ['Sales', 'Cost', 'Contribution']
+    };
+
+    const options = {
+        animation: false,
+        cutoutPercentage: 80,
+        layout: { padding: 0 },
+        legend: {
+            display: false
+        },
+        maintainAspectRatio: false,
+        responsive: true,
+    };
     return (
         <div style={{ maxWidth: "650px" }}>
-            <Bar
-                data={{
-                    // Name of the variables on x-axies for each bar
-                    labels: ["1st bar", "2nd bar", "3rd bar", "4th bar"],
-                    datasets: [
-                        {
-                            // Label for bars
-                            label: "total count/value",
-                            // Data or value of your each variable
-                            data: [1552, 1319, 613, 1400],
-                            // Color of each bar
-                            backgroundColor: ["aqua", "green", "red", "yellow"],
-                            // Border color of each bar
-                            borderColor: ["aqua", "green", "red", "yellow"],
-                            borderWidth: 0.5,
-                        },
-                    ],
-                }}
-                // Height of graph
-                height={400}
-                options={{
-                    maintainAspectRatio: false,
-                    scales: {
-                        yAxes: [
-                            {
-                                ticks: {
-                                    // The y-axis value will start from zero
-                                    beginAtZero: true,
-                                },
-                            },
-                        ],
-                    },
-                    legend: {
-                        labels: {
-                            fontSize: 15,
-                        },
-                    },
-                }}
+            <Doughnut
+                data={data}
+                options={options}
             />
         </div>
     )
