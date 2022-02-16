@@ -1,6 +1,6 @@
 import React from 'react'
 import Nav from './Nav'
-import StreakChart from './StreakChart'
+// import StreakChart from './StreakChart'
 // import StreakBar from './StreakBar'
 
 
@@ -27,7 +27,7 @@ function Home() {
                     <input placeholder='Enter Username' className='text-center w-96 border-2 rounded-full px-2 py-3 hover:border-red'></input>
                     <button className='transition py-2 px-5 font-bold rounded-lg ml-1 bg-green-600 text-white sm:my-2 md:my-2'>Search</button>
                 </form>
-                <div className='flex my-3 justify-between m-auto p-3 w-9/12'>
+                <div className='grid lg:grid-cols-3 sm:grid-cols-1 my-3 justify-between m-auto p-3 w-9/12'>
                     <div className='max-w-sm rounded overflow-hidden shadow-lg px-2 py-2 text-center w-72 h-24'>
                         <p className='font-bold text-2xl'>100</p>
                         <p>Composed Statuses</p>
@@ -57,7 +57,7 @@ function Home() {
                     </div>
                 </div>
                 <div>
-                    <StreakChart/>
+                    {/* <StreakChart/> */}
                     
                 </div>
                 <div className='flex my-3 justify-between m-auto p-3 w-9/12 flex-col'>
