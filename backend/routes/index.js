@@ -8,7 +8,6 @@ const oauthCallback = process.env.FRONTEND_URL;
 const oauth = require('../src/lib/oauth-promise')(oauthCallback);
 const COOKIE_NAME = 'oauth_token';
 
-
 // authentication
 function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' })
