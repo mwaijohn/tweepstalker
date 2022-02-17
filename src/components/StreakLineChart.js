@@ -27,5 +27,8 @@ const config = {
 
 export default () => {
   const chartRef = useRef()
-  return <LineChart {...config} chartRef={chartRef} />
+  return <div className='flex my-3 justify-between m-auto p-3 m-full sm:w-9/12 flex-col'>
+    <h2 className='text-2xl font-bold my-3 text-gray-600'>Tweeting Streak</h2>
+    <LineChart {...config} chartRef={chartRef} />
+  </div>
 }
