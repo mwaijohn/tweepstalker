@@ -7,10 +7,12 @@ import axios from 'axios'
 
 function UIComponents() {
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('jwtToken')}`;
-    const apiPath = process.env.REACT_APP_API_URL
+    // const apiPath = process.env.REACT_APP_API_URL
+    const apiPath = "http://localhost:3001"
 
     useEffect(async () => {
-        axios.get(`${apiPath}/data`)
+        console.log(apiPath)
+        axios.get(`${apiPath}/statuses`)
             .then(res => {
                 console.log(res);
                 console.log(res.data);

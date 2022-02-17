@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Login from './Login';
 import Home from './Home';
 
 function App() {
   return (
-    <div className="w-full h-screen">
-      <Home isLoggedIn={false}/>
-    </div>
+    <Routes>
+      <Route exact path="/" element={<Home />} />
+      <Route exact path="/login" element={<Login />} />
+    </Routes>
   );
 }
 

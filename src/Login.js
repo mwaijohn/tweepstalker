@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import queryString from 'query-string';
-import Home from './Home';
+import Nav from './Nav';
+import Footer from './components/Footer';
 
 function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -10,6 +11,7 @@ function Login() {
   const [status, setStatus] = useState();
   const [url, setUrl] = useState();
 
+  // const apiPath = process.env.REACT_APP_API_URL
   const apiPath = "http://localhost:3001"
   useEffect(() => {
     (async () => {
@@ -104,9 +106,13 @@ function Login() {
     })();
   }
   return (
-    <div className="flex w-full justify-center items-center h-28">
+    <React.Fragment>
+      <Nav />
+      <div className="flex w-full justify-center items-center h-28">
         <img className='signin-btn' onClick={login} alt='Twitter login button' src='https://assets.klaudsol.com/twitter.png' />
-    </div>
+      </div>
+      <Footer />
+    </React.Fragment>
   );
 }
 
