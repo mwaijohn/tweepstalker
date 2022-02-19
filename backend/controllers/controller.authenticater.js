@@ -80,11 +80,11 @@ const apiGetStatuses = async (req, res) => {
     try {
         
         const { access_token, access_token_secret, user } = req.user;
-        // const username = req.params.username | user.screen_name;
+        const username = req.params.username | user.screen_name;
         // construct twitter client
         let client = twitterClient(access_token, access_token_secret)
 
-        let data = await getStatuses("mjohn_5", client)
+        let data = await getStatuses(username, client)
 
         res.json(data)
 

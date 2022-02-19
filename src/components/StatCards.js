@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {numberFormatterLikeTwitter} from '../utilities'
+import { numberFormatterLikeTwitter } from '../utilities'
 
 function StatCards({ statuses, replies }) {
     console.log(statuses)
@@ -9,6 +9,7 @@ function StatCards({ statuses, replies }) {
     const [sentReplies, setSentReplies] = useState();
     const [receivedReplies, setReceivedReplies] = useState();
     const [followRatio, setFollowRatio] = useState();
+    const [screenName, setScreenName] = useState()
 
     useEffect(() => {
         let retweetSum = 0;
@@ -19,11 +20,11 @@ function StatCards({ statuses, replies }) {
         })
 
         let follwerRatio = 0;
-        if(statuses.length > 0){
+        if (statuses.length > 0) {
             const followersCount = statuses[0].user.followers_count;
             const followingCount = statuses[0]['user']['friends_count'];
-            console.log(followersCount,followingCount)
-            follwerRatio = followersCount/followingCount;
+            console.log(followersCount, followingCount)
+            follwerRatio = followersCount / followingCount;
         }
 
         setStatusRetweets(numberFormatterLikeTwitter(retweetSum))
@@ -32,12 +33,17 @@ function StatCards({ statuses, replies }) {
         setFollowRatio(follwerRatio.toFixed(2))
         setSentReplies(numberFormatterLikeTwitter(replies.length))
     }, [followRatio])
+
+    const searchUser = (event) => {
+        event.preventDefault();
+        console.log(screenName)
+        if (screenName === undefined || screenName == "") {
+            alert("Enter tweep username")
+            return
+        }
+    }
     return (
         <React.Fragment>
-            <form className='w-full flex flex-wrap justify-center my-2'>
-                <input placeholder='Enter Username' className='text-center w-96 border-2 rounded-full px-2 py-3'></input>
-                <button className='transition py-2 px-5 font-bold rounded-lg ml-1 bg-green-600 text-white my-1 sm:my-3'>Search</button>
-            </form>
             <div className='grid grid-cols-1 sm:grid-cols-3 m-auto p-3 w-full sm:w-9/12 gap-3 '>
                 <h2 className='text-2xl font-bold my-3 text-gray-600'>Engagement Stats</h2>
             </div>
