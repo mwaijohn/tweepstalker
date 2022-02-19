@@ -16,18 +16,11 @@ function generateAccessToken(user) {
 //our in-memory secrets database.
 //Can be a key-value store or a relational database
 let tokens = {};
-let main_oauth_token = null;
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
-});
 
 //OAuth Step 1
 router.post('/twitter/oauth/request_token', async (req, res) => {
   const { oauth_token, oauth_token_secret } = await oauth.getOAuthRequestToken();
-  main_oauth_token = oauth_token
   tokens[oauth_token] = { oauth_token_secret };
-  console.log("request_token", oauth_token, oauth_token_secret)
 
   res.json({ oauth_token });
 });
@@ -35,21 +28,12 @@ router.post('/twitter/oauth/request_token', async (req, res) => {
 
 //OAuth Step 3
 router.post('/twitter/oauth/access_token', async (req, res) => {
-  // const oauth_tokenn = req.cookies[COOKIE_NAME];
-
-  // res.json({ successjj: JSON.stringify({ "oauth_token_secret": oauth_token_secret,
-  //  "oauth_token": oauth_token, "oauth_verifier": oauth_verifier }) });
 
   try {
 
     // console.log(oauth_token,oauth_token_secret);
     const { oauth_token, oauth_verifier } = req.body;
     const oauth_token_secret = tokens[oauth_token].oauth_token_secret;
-
-    // if (oauth_token !== req_oauth_token) {
-    //   res.status(403).json({ message: "Request tokens do not match" });
-    //   return;
-    // }
 
     const { oauth_access_token, oauth_access_token_secret } = await oauth.getOAuthAccessToken(oauth_token, oauth_token_secret, oauth_verifier);
     tokens[oauth_token] = { ...tokens[oauth_token], oauth_access_token, oauth_access_token_secret };
@@ -120,22 +104,15 @@ router.get("/twitter/users/profile_banner", authenticateToken, async (req, res) 
 
 });
 
-router.get("/statuses", authenticateToken, async (req, res) => {
+router.get("/statuses/:username", authenticateToken, async (req, res) => {
   try {
-
+    const username = req.params.username
     const { access_token, access_token_secret, user } = req.user;
-    const userObject = JSON.parse(user)
     // construct twitter client
     let client = twitterClient(access_token, access_token_secret)
 
-    console.log(access_token, access_token_secret)
-    // console.log("user object",JSON.stringify(user))
+    let data = await getStatuses(username, client)
 
-    // get statuses
-    // let data = await getStatuses(userObject.screen_name, client)
-    let data = await getStatuses("dr", client)
-    console.log()
-    // res.json({"jhjh":"kjkjk"});
     res.json(data)
 
   } catch (error) {

@@ -4,7 +4,7 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 
 function Login() {
-  const apiPath = "http://localhost:3001"
+  const apiPath = "http://localhost:3001/api"
 
   const logout = () => {
     (async () => {

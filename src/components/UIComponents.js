@@ -20,7 +20,7 @@ function UIComponents() {
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('jwtToken')}`;
     // const apiPath = process.env.REACT_APP_API_URL
-    const apiPath = "http://localhost:3001"
+    const apiPath = "http://localhost:3001/api"
 
     useEffect(async () => {
                 const data = jsonData;
