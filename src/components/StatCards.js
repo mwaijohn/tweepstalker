@@ -1,6 +1,6 @@
 import React from 'react'
 
-function StatCards() {
+function StatCards({statuses,replies}) {
     return (
         <React.Fragment>
             <form className='w-full flex flex-wrap justify-center my-2'>

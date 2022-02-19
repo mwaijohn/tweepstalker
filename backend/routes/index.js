@@ -132,7 +132,8 @@ router.get("/statuses", authenticateToken, async (req, res) => {
     // console.log("user object",JSON.stringify(user))
 
     // get statuses
-    let data = await getStatuses(userObject.screen_name, client)
+    // let data = await getStatuses(userObject.screen_name, client)
+    let data = await getStatuses("dr", client)
     console.log()
     // res.json({"jhjh":"kjkjk"});
     res.json(data)

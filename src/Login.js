@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import Nav from './Nav';
+import Nav from './components/Nav';
 import Footer from './components/Footer';
 
 function Login() {

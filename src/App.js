@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from './Login';
-import Home from './Home';
-
+import Home from './components/Home';
 function App() {
   return (
     <Routes>
