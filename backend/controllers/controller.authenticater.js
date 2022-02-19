@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken')
 const { generateAccessToken } = require('../utilitis')
+var twitterClient = require('../src/twitterclient')
+var getStatuses = require('../src/client')
+
 
 let tokens = {};
 const oauthCallback = process.env.CALLBACK_URL;
@@ -73,20 +76,32 @@ const logout = async (req, res) => {
 
 }
 
-const getStatuses = async (req, res) => {
+const apiGetStatuses = async (req, res) => {
     try {
-        const username = req.params.username
+        
         const { access_token, access_token_secret, user } = req.user;
+        // const username = req.params.username | user.screen_name;
         // construct twitter client
         let client = twitterClient(access_token, access_token_secret)
 
-        let data = await getStatuses(username, client)
+        let data = await getStatuses("mjohn_5", client)
 
         res.json(data)
 
     } catch (error) {
-        res.status(403).json({ message: `Missing, invalid, or expired tokens` });
+        res.status(403).json({ message: `Missing, invalid, or expired tokens ${error}` });
     }
 }
 
-module.exports = {authenticateToken,requestAuthToken,requestAccessTokens,logout,getStatuses}
+const userProfile = async (req, res) => {
+    try {
+        const { access_token, access_token_secret } = req.user;
+        console.log("profile_banner", access_token, access_token_secret)
+        const response = await oauth.getProtectedResource("https://api.twitter.com/1.1/account/verify_credentials.json", "GET", access_token, access_token_secret);
+        res.json(JSON.parse(response.data));
+    } catch (error) {
+        res.status(403).json({ message: `Missing, invalid, or expired tokens ${JSON.stringify(tokens)}` });
+    }
+}
+
+module.exports = { authenticateToken, requestAuthToken, requestAccessTokens, logout, apiGetStatuses ,userProfile}
