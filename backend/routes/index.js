@@ -4,13 +4,13 @@ var twitterClient = require('../src/twitterclient')
 var getStatuses = require('../src/client')
 
 const jwt = require('jsonwebtoken')
-const oauthCallback = process.env.FRONTEND_URL;
+const oauthCallback = process.env.CALLBACK_URL;
 const oauth = require('../src/lib/oauth-promise')(oauthCallback);
 const COOKIE_NAME = 'oauth_token';
 
 // authentication
 function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' })
+  return jwt.sign(user, process.env.TOKEN_SECRET, { expiresIn: '7d' })
 }
 
 //our in-memory secrets database.
@@ -27,7 +27,7 @@ router.post('/twitter/oauth/request_token', async (req, res) => {
   const { oauth_token, oauth_token_secret } = await oauth.getOAuthRequestToken();
   main_oauth_token = oauth_token
   tokens[oauth_token] = { oauth_token_secret };
-  console.log("request_token",oauth_token, oauth_token_secret)
+  console.log("request_token", oauth_token, oauth_token_secret)
 
   res.json({ oauth_token });
 });
@@ -53,7 +53,7 @@ router.post('/twitter/oauth/access_token', async (req, res) => {
 
     const { oauth_access_token, oauth_access_token_secret } = await oauth.getOAuthAccessToken(oauth_token, oauth_token_secret, oauth_verifier);
     tokens[oauth_token] = { ...tokens[oauth_token], oauth_access_token, oauth_access_token_secret };
-    console.log("access_token",oauth_access_token, oauth_access_token_secret)
+    console.log("access_token", oauth_access_token, oauth_access_token_secret)
 
     const response = await oauth.getProtectedResource("https://api.twitter.com/1.1/account/verify_credentials.json", "GET", oauth_access_token, oauth_access_token_secret);
 
@@ -62,6 +62,8 @@ router.post('/twitter/oauth/access_token', async (req, res) => {
       "access_token_secret": oauth_access_token_secret,
       "user": response.data
     }
+
+    console.log("response data", JSON.stringify(response.data))
 
     const accessToken = generateAccessToken(user)
     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
@@ -109,7 +111,7 @@ router.get("/twitter/users/profile_banner", authenticateToken, async (req, res) 
     // const oauth_token = req.cookies['cookieName'];
 
     const { access_token, access_token_secret } = req.user;
-    console.log("profile_banner",access_token, access_token_secret)
+    console.log("profile_banner", access_token, access_token_secret)
     const response = await oauth.getProtectedResource("https://api.twitter.com/1.1/account/verify_credentials.json", "GET", access_token, access_token_secret);
     res.json(JSON.parse(response.data));
   } catch (error) {
