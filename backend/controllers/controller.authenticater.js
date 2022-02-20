@@ -78,15 +78,18 @@ const logout = async (req, res) => {
 
 const apiGetStatuses = async (req, res) => {
     try {
-        
-        const { access_token, access_token_secret, user } = req.user;
-        const username = req.params.username | user.screen_name;
-        // construct twitter client
-        let client = twitterClient(access_token, access_token_secret)
 
+        const { access_token, access_token_secret, user } = req.user;
+        // console.log(access_token, access_token_secret)
+        const username = req.params.username || JSON.parse(user).screen_name;
+
+        console.log(JSON.parse(user).screen_name)
+        // construct twitter client
+        let client = twitterClient(access_token, access_token_secret);
+        console.log(username)
         let data = await getStatuses(username, client)
 
-        res.json(data)
+        res.json(data);
 
     } catch (error) {
         res.status(403).json({ message: `Missing, invalid, or expired tokens ${error}` });
@@ -104,4 +107,4 @@ const userProfile = async (req, res) => {
     }
 }
 
-module.exports = { authenticateToken, requestAuthToken, requestAccessTokens, logout, apiGetStatuses ,userProfile}
+module.exports = { authenticateToken, requestAuthToken, requestAccessTokens, logout, apiGetStatuses, userProfile }
