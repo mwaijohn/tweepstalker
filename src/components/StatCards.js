@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { numberFormatterLikeTwitter } from '../utilities'
+import { numberFormatterLikeTwitter,lastSevenDates,formatDate } from '../utilities'
 
 function StatCards({ statuses, replies }) {
     console.log(statuses)
@@ -29,23 +29,15 @@ function StatCards({ statuses, replies }) {
 
         setStatusRetweets(numberFormatterLikeTwitter(retweetSum))
         setStatusLikes(numberFormatterLikeTwitter(likesSum))
-        setComposedStatusesCount(statuses.length)
+        setComposedStatusesCount(numberFormatterLikeTwitter(statuses.length))
         setFollowRatio(follwerRatio.toFixed(2))
         setSentReplies(numberFormatterLikeTwitter(replies.length))
-    }, [followRatio])
+    }, [statuses])
 
-    const searchUser = (event) => {
-        event.preventDefault();
-        console.log(screenName)
-        if (screenName === undefined || screenName == "") {
-            alert("Enter tweep username")
-            return
-        }
-    }
     return (
         <React.Fragment>
-            <div className='grid grid-cols-1 sm:grid-cols-3 m-auto p-3 w-full sm:w-9/12 gap-3 '>
-                <h2 className='text-2xl font-bold my-3 text-gray-600'>Engagement Stats</h2>
+            <div className='grid grid-cols-1 sm:grid-cols-3 m-auto p-3 w-full sm:w-9/12'>
+                <h2 className='text-2xl font-bold my-3 text-gray-600'>Engagement Stats(Last Seven Days)</h2>
             </div>
             <div className='grid grid-cols-2 sm:grid-cols-3 m-auto p-3 w-full sm:w-9/12 gap-3 '>
                 <div className='max-w-sm rounded overflow-hidden shadow-lg px-2 py-2 text-center h-24 flex flex-col justify-center'>

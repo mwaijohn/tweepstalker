@@ -14,7 +14,7 @@ const StreakLineChart = ({ streak }) => {
   })
 
   data = data.sort((a, b) => dateToTimestamp(a.date) - dateToTimestamp(b.date))
-  console.log(data)
+  // console.log(data)
 
   const config = {
     height: 350,
