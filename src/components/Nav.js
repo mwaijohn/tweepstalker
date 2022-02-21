@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 function Nav() {
 
+    const [isLoggedIn, setIsLoggedIn] = useState()
+    const [user, setUser] = useState(null)
+    useEffect(() => {
+        const userSource = localStorage.getItem("user")
+        if (userSource) {
+            const userObj = JSON.parse(userSource)
+            setIsLoggedIn(true)
+            setUser(userObj)
+        } else {
+            setIsLoggedIn(false)
+        }
+    }, [isLoggedIn])
+    
     const toggleMenu = () => {
         const btn = document.querySelector("button.mobile-menu-button");
         const menu = document.querySelector(".mobile-menu");
@@ -25,8 +38,12 @@ function Nav() {
                         </div>
                     </div>
                     <div className="hidden md:flex items-center space-x-3 ">
-                        <a href="" className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300">Log In</a>
-                        <img src="./img/avatar.png" alt="Logo" className="h-8 w-8 border mr-2 rounded-full" />
+                        {
+                            isLoggedIn ? <> <a href="" className="py-2 px-2 font-medium text-gray-500 hover:text-white transition duration-300">{user.name}</a>
+                                <img src={user.profile_image_url} alt="Logo" className="h-8 w-8 border mr-2 rounded-full" /></>
+                                : <><a href="" className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300">Log In</a>
+                                    <img src="./img/avatar.png" alt="Logo" className="h-8 w-8 border mr-2 rounded-full" /></>
+                        }
                     </div>
                     <div className="md:hidden flex items-center">
                         <button className="outline-none mobile-menu-button" onClick={toggleMenu}>

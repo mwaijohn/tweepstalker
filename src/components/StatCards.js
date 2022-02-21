@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { numberFormatterLikeTwitter,lastSevenDates,formatDate } from '../utilities'
+import { numberFormatterLikeTwitter, lastSevenDates, formatDate } from '../utilities'
 
 function StatCards({ statuses, replies }) {
     console.log(statuses)
@@ -7,7 +7,6 @@ function StatCards({ statuses, replies }) {
     const [statusRetweets, setStatusRetweets] = useState();
     const [statusLikes, setStatusLikes] = useState();
     const [sentReplies, setSentReplies] = useState();
-    const [receivedReplies, setReceivedReplies] = useState();
     const [followRatio, setFollowRatio] = useState();
     const [screenName, setScreenName] = useState()
 
@@ -55,10 +54,6 @@ function StatCards({ statuses, replies }) {
                 <div className='max-w-sm rounded overflow-hidden shadow-lg px-2 py-2 text-center h-24 flex flex-col justify-center'>
                     <p className='font-bold text-2xl'>{sentReplies}</p>
                     <p>Replies Sent</p>
-                </div>
-                <div className='max-w-sm rounded overflow-hidden shadow-lg px-2 py-2 text-center h-24 flex flex-col justify-center'>
-                    <p className='font-bold text-2xl'>700</p>
-                    <p>Replies Received</p>
                 </div>
                 <div className='max-w-sm rounded overflow-hidden shadow-lg px-2 py-2 text-center h-24 flex flex-col justify-center'>
                     <p className='font-bold text-2xl'>{followRatio}</p>
