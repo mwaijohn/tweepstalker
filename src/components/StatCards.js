@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { numberFormatterLikeTwitter, lastSevenDates, formatDate } from '../utilities'
 
-function StatCards({ statuses, replies }) {
+function StatCards({ statuses, replies, isLoading }) {
     console.log(statuses)
     const [composedStatusesCount, setComposedStatusesCount] = useState();
     const [statusRetweets, setStatusRetweets] = useState();
@@ -35,8 +35,14 @@ function StatCards({ statuses, replies }) {
 
     return (
         <React.Fragment>
-            <div className='grid grid-cols-1 sm:grid-cols-3 m-auto p-3 w-full sm:w-9/12'>
-                <h2 className='text-2xl font-bold my-3 text-gray-600'>Engagement Stats(Last Seven Days)</h2>
+            {
+                isLoading && <div className='flex m-auto p-3 w-full sm:w-9/12 justify-center'>
+                    <div className="h-6 w-6 border-b-2 border-gray-900 rounded-full animate-spin inline-block"></div>
+                </div>
+            }
+
+            <div className='grid m-auto p-3 w-full sm:w-9/12'>
+                <p className='text-2xl font-bold my-3 text-gray-600'>Engagement Stats(Last Seven Days)</p>
             </div>
             <div className='grid grid-cols-2 sm:grid-cols-3 m-auto p-3 w-full sm:w-9/12 gap-3 '>
                 <div className='max-w-sm rounded overflow-hidden shadow-lg px-2 py-2 text-center h-24 flex flex-col justify-center'>

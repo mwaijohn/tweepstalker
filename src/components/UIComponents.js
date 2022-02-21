@@ -8,10 +8,7 @@ import axios from 'axios'
 import SearchTweep from './SearchTweep';
 
 function UIComponents() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [name, setName] = useState();
-    const [imageUrl, setImageUrl] = useState();
-    const [status, setStatus] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const [userStatuses, setUserStatuses] = useState([]);
     const [replies, setReplies] = useState([])
     const [onlyStatuses, setOnlyStatuses] = useState([])
@@ -29,7 +26,7 @@ function UIComponents() {
         if(screenName != undefined || screenName != ""){
             apiRoute = `${apiPath}/statuses/${screenName}`
         }
-        
+        setIsLoading(true)
         await axios.get(apiRoute)
             .then(res => {
                 // console.log(res);
@@ -98,13 +95,14 @@ function UIComponents() {
                 console.log(replies)
                 setOnlyStatuses(statuses)
                 console.log(statuses)
-                setHashTags(hashTags)
+                const uniqueTags = [...new Set(hashTags)]
+                console.log(uniqueTags)
+                setHashTags(uniqueTags)
                 setTweetingStreak(intersection)
-
-                console.log(hashTags)
-
+                setIsLoading(false)
             }).catch(err => {
                 console.log(err)
+                setIsLoading(false)
             })
     }
 
@@ -130,7 +128,7 @@ function UIComponents() {
                     localStorage.setItem("refreshToken", data.accessToken)
                     localStorage.setItem("user", JSON.parse(data.user))
 
-                    window.location = "/"
+                    window.location = "/dashboard"
 
                 } catch (error) {
                     console.log(oauth_token, oauth_verifier)
@@ -176,7 +174,7 @@ function UIComponents() {
     return (
         <main>
             <SearchTweep searchUser={searchUser} getScreenName={getScreenName} />
-            <StatCards statuses={onlyStatuses} replies={replies} />
+            <StatCards statuses={onlyStatuses} replies={replies} isLoading={isLoading}/>
             <StreakLineChart streak={tweetingStreak} />
             <TagsSection tags={hashTags} />
         </main>

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import Nav from './components/Nav';
 import Footer from './components/Footer';
@@ -10,14 +10,14 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState()
   const [user, setUser] = useState(null)
   useEffect(() => {
-      const userSource = localStorage.getItem("user")
-      if (userSource) {
-          const userObj = JSON.parse(userSource)
-          setIsLoggedIn(true)
-          setUser(userObj)
-      } else {
-          setIsLoggedIn(false)
-      }
+    const userSource = localStorage.getItem("user")
+    if (userSource) {
+      const userObj = JSON.parse(userSource)
+      setIsLoggedIn(true)
+      setUser(userObj)
+    } else {
+      setIsLoggedIn(false)
+    }
   }, [isLoggedIn])
 
   const logout = () => {
@@ -69,8 +69,8 @@ function Login() {
           </div>
           {
             isLoggedIn ? <><p className='my-2 text-lg'>Welcome back {user.name}</p>
-            <a className='inline-block mt-2 px-16 py-4 bg-green-600 rounded-md text-white font-bold' href='/'>Go To DashBoard</a>
-            </> :<button className='my-4 px-16 py-4 bg-green-600 rounded-md text-white font-bold' onClick={login}>Login</button>
+              <a className='inline-block mt-2 px-16 py-4 bg-green-600 rounded-md text-white font-bold' href='/dashboard'>Go To DashBoard</a>
+            </> : <button className='my-4 px-16 py-4 bg-green-600 rounded-md text-white font-bold' onClick={login}>Login</button>
           }
         </div>
         <div className='text-center'>
