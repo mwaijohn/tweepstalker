@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { numberFormatterLikeTwitter, lastSevenDates, formatDate } from '../utilities'
+import { numberFormatterLikeTwitter } from '../utilities'
 
 function StatCards({ statuses, replies, isLoading }) {
     console.log(statuses)
@@ -8,7 +8,6 @@ function StatCards({ statuses, replies, isLoading }) {
     const [statusLikes, setStatusLikes] = useState();
     const [sentReplies, setSentReplies] = useState();
     const [followRatio, setFollowRatio] = useState();
-    const [screenName, setScreenName] = useState()
 
     useEffect(() => {
         let retweetSum = 0;
@@ -40,7 +39,6 @@ function StatCards({ statuses, replies, isLoading }) {
                     <div className="h-6 w-6 border-b-2 border-gray-900 rounded-full animate-spin inline-block"></div>
                 </div>
             }
-
             <div className='grid m-auto p-3 w-full sm:w-9/12'>
                 <p className='text-2xl font-bold my-3 text-gray-600'>Engagement Stats(Last Seven Days)</p>
             </div>

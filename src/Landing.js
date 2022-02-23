@@ -4,7 +4,7 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 import screenshot from './screenshot.png'
 
-function Login() {
+function Landing() {
   const apiPath = "http://localhost:3001/api"
 
   const [isLoggedIn, setIsLoggedIn] = useState()
@@ -20,19 +20,6 @@ function Login() {
     }
   }, [isLoggedIn])
 
-  const logout = () => {
-    (async () => {
-      try {
-        await axios({
-          url: `${apiPath}/twitter/logout`,
-          method: 'POST'
-        });
-        // setIsLoggedIn(false);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }
   const login = () => {
     (async () => {
       try {
@@ -83,4 +70,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Landing;
