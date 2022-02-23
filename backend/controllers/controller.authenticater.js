@@ -5,8 +5,7 @@ var getStatuses = require('../src/client')
 
 
 let tokens = {};
-const oauthCallback = process.env.CALLBACK_URL;
-const oauth = require('../src/lib/oauth-promise')(oauthCallback);
+const oauth = require('../src/lib/oauth-promise')();
 
 // generate token
 const authenticateToken = (req, res, next) => {
@@ -37,7 +36,7 @@ const requestAccessTokens = async (req, res) => {
         // console.log(oauth_token,oauth_token_secret);
         const { oauth_token, oauth_verifier } = req.body;
         const oauth_token_secret = tokens[oauth_token].oauth_token_secret;
-
+        console.log(oauth_token,oauth_verifier)
         const { oauth_access_token, oauth_access_token_secret } = await oauth.getOAuthAccessToken(oauth_token, oauth_token_secret, oauth_verifier);
         tokens[oauth_token] = { ...tokens[oauth_token], oauth_access_token, oauth_access_token_secret };
         console.log("access_token", oauth_access_token, oauth_access_token_secret)
@@ -62,18 +61,6 @@ const requestAccessTokens = async (req, res) => {
     } catch (error) {
         res.status(403).json({ message: `Missing access token ${error} ${JSON.stringify(req.body)} ${JSON.stringify(tokens)}` });
     }
-}
-
-const logout = async (req, res) => {
-    try {
-        const oauth_token = req.cookies[COOKIE_NAME];
-        delete tokens[oauth_token];
-        res.cookie(COOKIE_NAME, {}, { maxAge: -1 });
-        res.json({ success: true });
-    } catch (error) {
-        res.status(403).json({ message: "Missing, invalid, or expired tokens" });
-    }
-
 }
 
 const apiGetStatuses = async (req, res) => {
@@ -107,4 +94,4 @@ const userProfile = async (req, res) => {
     }
 }
 
-module.exports = { authenticateToken, requestAuthToken, requestAccessTokens, logout, apiGetStatuses, userProfile }
+module.exports = { authenticateToken, requestAuthToken, requestAccessTokens, apiGetStatuses, userProfile }
