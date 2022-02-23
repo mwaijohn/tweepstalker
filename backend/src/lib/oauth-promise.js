@@ -1,17 +1,18 @@
 //convert oauth methods to promises so we can use async/await syntax
-//and keep our code sexier
 
-module.exports = (oauthCallback) => {
+module.exports = () => {
   
   const CONSUMER_KEY = process.env.API_KEY;
   const CONSUMER_SECRET = process.env.API_KEY_SECRET;
+  const CALLBACK_URL = process.env.CALLBACK_URL;
+
   const _oauth = new (require('oauth').OAuth)(
       'https://api.twitter.com/oauth/request_token',
       'https://api.twitter.com/oauth/access_token',
       CONSUMER_KEY, // consumer key
       CONSUMER_SECRET, // consumer secret
       '1.0',
-      oauthCallback,
+       CALLBACK_URL,
       'HMAC-SHA1'
   );
   
