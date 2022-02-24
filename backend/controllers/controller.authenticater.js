@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { generateAccessToken } = require('../utilitis')
+const { generateAccessToken } = require('../utilities')
 var twitterClient = require('../src/twitterclient')
 var getStatuses = require('../src/client')
 
