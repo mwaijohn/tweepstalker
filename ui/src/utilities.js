@@ -55,3 +55,5 @@ export const dateToTimestamp = (strDate) => {
     var datum = Date.parse(strDate);
     return datum / 1000;
 }
+
+export const apiPath = "https://agitated-goldwasser-99cad0.netlify.app/.netlify/functions/api"

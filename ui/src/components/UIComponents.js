@@ -5,6 +5,7 @@ import TagsSection from './TagsSection'
 import { formatDate, lastSevenDates } from '../utilities';
 import axios from 'axios'
 import SearchTweep from './SearchTweep';
+import {apiPath} from '../utilities'
 
 function UIComponents() {
 
@@ -17,8 +18,6 @@ function UIComponents() {
     const [screenName, setScreenName] = useState("")
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('jwtToken')}`;
-    // const apiPath = process.env.REACT_APP_API_URL
-    const apiPath = "http://192.168.0.104:3001/api"
 
     const getData = async () => {
 

@@ -6,13 +6,14 @@ import Footer from './Footer';
 import screenshot from '../screenshot.png'
 import queryString from 'query-string';
 import useAuth from '../hooks/UseAuth';
+import {apiPath} from '../utilities'
 
 function Landing() {
 
   const navigate = useNavigate()
   const { auth, setAuth } = useAuth()
 
-  const apiPath = "http://192.168.0.104:3001/api"
+  // const apiPath = "http://192.168.0.104:3001/api"
   const [user, setUser] = useState()
 
   useEffect(() => {

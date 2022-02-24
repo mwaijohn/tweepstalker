@@ -21,7 +21,8 @@ function Nav() {
 
     const logout = () => {
         localStorage.clear()
-        navigate("http://localhost:3000/", { replace: false })
+        // navigate("http://localhost:3000/")
+        window.location = "/"
     }
 
     const toggleMenu = () => {
