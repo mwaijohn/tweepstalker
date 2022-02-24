@@ -30,9 +30,10 @@ const requestAuthToken = async (req, res) => {
 }
 
 const requestAccessTokens = async (req, res) => {
+    const { oauth_token, oauth_verifier } = req.body;
     try {
         // console.log(oauth_token,oauth_token_secret);
-        const { oauth_token, oauth_verifier } = req.body;
+       
         const oauth_token_secret = tokens[oauth_token].oauth_token_secret;
         console.log(oauth_token,oauth_verifier)
         const { oauth_access_token, oauth_access_token_secret } = await oauth.getOAuthAccessToken(oauth_token, oauth_token_secret, oauth_verifier);
