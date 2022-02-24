@@ -13,7 +13,6 @@ function App() {
         </RequireAuth>
       }
       />
-
       <Route exact path="/" element={<Landing />} />
     </Routes>
   );

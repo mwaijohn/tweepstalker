@@ -65,10 +65,10 @@ function Landing() {
     (async () => {
       try {
         //OAuth Step 1
-        const response = await axios({
-          url: `${apiPath}/twitter/oauth/request_token`,
-          method: 'POST'
-        });
+        // const response = await axios({
+        //   url: `${apiPath}/twitter/oauth/request_token`,
+        //   method: 'POST'
+        // });
         await axios({
           url: `${apiPath}/home`,
           method: 'GET'
