@@ -7,8 +7,8 @@
     "start": "node ./bin/www"
   },
   "scripts": {
-    "start": "NODE_ENV=production ./node_modules/.bin/netlify-lambda serve server",
-    "build": "NODE_ENV=production ./node_modules/.bin/netlify-lambda build server"
+    "start": "./node_modules/.bin/netlify-lambda serve server",
+    "build": "./node_modules/.bin/netlify-lambda build server"
   },
   "dependencies": {
     "axios": "^0.25.0",
