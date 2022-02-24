@@ -69,10 +69,14 @@ function Landing() {
           url: `${apiPath}/twitter/oauth/request_token`,
           method: 'POST'
         });
-
-        const { oauth_token } = response.data;
+        await axios({
+          url: `${apiPath}/home`,
+          method: 'GET'
+        });
+        return
+        //const { oauth_token } = response.data;
         //Oauth Step 2
-        window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
+       // window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
       } catch (error) {
         console.error(error);
       }
