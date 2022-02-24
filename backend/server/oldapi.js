@@ -1,14 +1,12 @@
 var createError = require('http-errors');
 var express = require('express');
+const serverless = require("serverless-http");
 var logger = require('morgan');
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var apiRouter = require('./routes/router.api');
+var apiRouter = require('../routes/router.api');
 
 var app = express();
 app.use(cors())
@@ -18,7 +16,7 @@ app.use(express.json());
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
-app.use('/api', apiRouter);
+// app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -36,6 +34,7 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-
+app.use(`/.netlify/functions/api`, apiRouter);
 
 module.exports = app;
+module.exports.handler = serverless(app);
