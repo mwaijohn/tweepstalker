@@ -6,7 +6,6 @@ function Nav() {
     const [showSignOut, setShowSignOut] = useState(false)
     const [authed, setAuthed] = useState()
     const [user, setUser] = useState()
-    const navigate = useNavigate()
 
     useEffect(() => {
         const userSource = localStorage.getItem("user")

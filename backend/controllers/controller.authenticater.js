@@ -30,9 +30,7 @@ const requestAuthToken = async (req, res) => {
 }
 
 const requestAccessTokens = async (req, res) => {
-
     try {
-
         // console.log(oauth_token,oauth_token_secret);
         const { oauth_token, oauth_verifier } = req.body;
         const oauth_token_secret = tokens[oauth_token].oauth_token_secret;
@@ -57,9 +55,8 @@ const requestAccessTokens = async (req, res) => {
 
         res.json({ accessToken: accessToken, refreshToken: refreshToken, user: JSON.stringify(response.data) })
         // res.json({ success: true, tokens: JSON.stringify(data) });
-
     } catch (error) {
-        res.status(403).json({ message: `Missing access token ${error} ${JSON.stringify(req.body)} ${JSON.stringify(tokens)}` });
+        res.status(403).json({ message: `Missing access token ${error} ${JSON.stringify(req.body)} ${oauth_token} ${JSON.stringify(tokens)}` });
     }
 }
 

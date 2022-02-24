@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { Routes, Route, Navigate } from "react-router-dom";
+import React from 'react';
+import { Routes, Route } from "react-router-dom";
 import Landing from './components/Landing';
 import DashBoard from './components/Dashboard';
 import RequireAuth from './components/RequireAuth';

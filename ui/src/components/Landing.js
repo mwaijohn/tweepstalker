@@ -65,18 +65,18 @@ function Landing() {
     (async () => {
       try {
         //OAuth Step 1
-        // const response = await axios({
-        //   url: `${apiPath}/twitter/oauth/request_token`,
-        //   method: 'POST'
-        // });
-        await axios({
-          url: `${apiPath}/home`,
-          method: 'GET'
+        const response = await axios({
+          url: `${apiPath}/twitter/oauth/request_token`,
+          method: 'POST'
         });
-        return
-        //const { oauth_token } = response.data;
+        // await axios({
+        //   url: `${apiPath}/home`,
+        //   method: 'GET'
+        // });
+        // return
+        const { oauth_token } = response.data;
         //Oauth Step 2
-       // window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
+       window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
       } catch (error) {
         console.error(error);
       }
