@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import './styles/output.css'
-
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { AuthProvider } from "./context/AuthProvider";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </BrowserRouter>
   ,
   document.getElementById('root')

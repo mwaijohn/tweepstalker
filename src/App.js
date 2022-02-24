@@ -1,34 +1,19 @@
-import { useState, useEffect } from 'react';
-import { Routes, Route } from "react-router-dom";
-import Landing from './Landing';
-import Home from './components/Home';
-import useAuth from './hooks/UseAuth';
-
-
-function RequireAuth({ children }) {
-  const { authed } = useAuth();
-
-  return authed === true ? children : <Navigate to="/" replace />;
-}
+import React, { useContext, useEffect } from 'react';
+import { Routes, Route, Navigate } from "react-router-dom";
+import Landing from './components/Landing';
+import DashBoard from './components/Dashboard';
+import RequireAuth from './components/RequireAuth';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState()
-
-  useEffect(() => {
-    const userSource = localStorage.getItem("user")
-    if (userSource) {
-      setIsLoggedIn(true)
-    } else {
-      setIsLoggedIn(false)
-    }
-  }, [isLoggedIn])
   return (
     <Routes>
       <Route exact path="/dashboard" element={
         <RequireAuth>
-          <Home />
+          <DashBoard />
         </RequireAuth>
-      } />
+      }
+      />
+
       <Route exact path="/" element={<Landing />} />
     </Routes>
   );

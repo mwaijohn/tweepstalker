@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from 'react'
 
-function Nav() {
+import { useNavigate } from 'react-router-dom'
 
-    const [isLoggedIn, setIsLoggedIn] = useState()
+function Nav() {
     const [showSignOut, setShowSignOut] = useState(false)
-    const [user, setUser] = useState(null)
+    const [authed, setAuthed] = useState()
+    const [user, setUser] = useState()
+    const navigate = useNavigate()
+
     useEffect(() => {
         const userSource = localStorage.getItem("user")
         if (userSource) {
             const userObj = JSON.parse(userSource)
-            setIsLoggedIn(true)
+            setAuthed(true)
             setUser(userObj)
         } else {
-            setIsLoggedIn(false)
+            setAuthed(false)
         }
-    }, [isLoggedIn])
+    }, [authed])
 
     const logout = () => {
         localStorage.clear()
-        window.location = "/"
+        navigate("http://localhost:3000/", { replace: false })
     }
 
     const toggleMenu = () => {
@@ -42,13 +45,13 @@ function Nav() {
                     </div>
                     <div className="hidden md:flex items-center space-x-3 ">
                         {
-                            isLoggedIn ? <> <a href="" className="py-2 px-2 font-medium text-gray-500 transition duration-300">{user.name}</a>
+                            authed ? <> <a href="" className="py-2 px-2 font-medium text-gray-500 transition duration-300">{user.name}</a>
                                 <button type="button" data-modal-toggle="small-modal" onClick={() => setShowSignOut(!showSignOut)}>
                                     <span className="sr-only">Open user menu</span>
                                     <img src={user.profile_image_url} alt="Logo" className="h-8 w-8 border mr-2 rounded-full" />
                                 </button>
                                 {
-                                    showSignOut && <DropDown logout={logout}/>
+                                    showSignOut && <DropDown logout={logout} />
                                 }
                             </>
                                 : <><a href="" className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 transition duration-300">Log In</a>
@@ -76,7 +79,7 @@ function Nav() {
                 <ul className="">
                     <li className="active"><a href="index.html" className="block text-sm px-2 py-4 text-white bg-green-500 font-semibold">Home</a></li>
                     {
-                        isLoggedIn && <li className="active"><a href="index.html" className="block text-sm px-2 py-4 text-white bg-green-500 font-semibold" onClick={logout}>Sign Out</a></li>
+                        authed && <li className="active"><a href="index.html" className="block text-sm px-2 py-4 text-white bg-green-500 font-semibold" onClick={logout}>Sign Out</a></li>
                     }
                 </ul>
             </div>
@@ -87,7 +90,7 @@ function Nav() {
 export default Nav
 
 
-export const DropDown = ({logout}) => {
+export const DropDown = ({ logout }) => {
     return (
         <div className='origin-top-right absolute right-0 top-16
          w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>

@@ -5,7 +5,7 @@ const getStatuses = async (screen_name, twitterClient) => {
     let payload = {}
 
     try {
-        for (var i = 3; i > 0; i--) {
+        for (var i = 1; i > 0; i--) {
             //get user time line
             if (max_id == null) {
                 payload = { "screen_name": screen_name, "include_rts": false, "count":200 }
