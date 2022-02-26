@@ -7,7 +7,7 @@ dotenv.config();
 const cors = require('cors');
 
 const app = express();
-app.use(cors())
+app.use(cors()) 
 app.use(bodyParser.json())
 
 var apiRouter = require('../routes/router.api');

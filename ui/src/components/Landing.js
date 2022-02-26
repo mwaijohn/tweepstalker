@@ -22,8 +22,6 @@ function Landing() {
       const userObj = JSON.parse(userSource)
       setAuth(true)
       setUser(userSource)
-      console.log(auth,"klkl")
-      console.log(userObj)
     } else {
       setAuth(false)
       console.log(auth)

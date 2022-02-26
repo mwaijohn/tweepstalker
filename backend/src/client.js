@@ -1,28 +1,55 @@
+const { dayBeforeSevenDays, lastSevenDates, formatDate, dateToTimestamp } = require('../utilities')
+
 const getStatuses = async (screen_name, twitterClient) => {
 
-    let dataArray = []
-    let max_id = null
-    let payload = {}
+    const sevenDates = lastSevenDates();
+    const dateTo = dayBeforeSevenDays();
 
-    try {
-        for (var i = 1; i > 0; i--) {
-            //get user time line
+    let tweetDate = sevenDates[sevenDates.length - 1]
+    let dataArray = []
+
+    console.log(dateTo, tweetDate)
+
+    while (dateTo != tweetDate) {
+        console.log("sleep")
+        let max_id = null
+        let payload = {}
+
+        try {
             if (max_id == null) {
-                payload = { "screen_name": screen_name, "include_rts": false, "count":200 }
+                payload = { "screen_name": screen_name, "include_rts": false, "count": 200 }
             } else {
-                payload = { "screen_name": screen_name, "include_rts": false, "max_id": max_id,"count":200 }
+                payload = { "screen_name": screen_name, "include_rts": false, "max_id": max_id, "count": 200 }
             }
             var statuses = await twitterClient.tweets.statusesUserTimeline(payload)
-          
-            max_id = statuses[(statuses.length - 1)]['id']
+            // console.log(statuses)
+            try {
 
+                if (max_id == statuses[(statuses.length - 1)]['id']) {
+                    break
+                } else {
+                    max_id = statuses[(statuses.length - 1)]['id']
+                    tweetDate = formatDate(statuses[(statuses.length - 1)]['created_at'])
+                }
 
-            console.log(max_id)
-            dataArray.unshift(...statuses)
+                console.log(statuses.length)
+                console.log(max_id)
+                console.log(tweetDate)
+                dataArray.unshift(...statuses)
+
+                if (dateToTimestamp(tweetDate) < dateToTimestamp(sevenDates[0])) {
+                    break
+                }
+
+            } catch (error) {
+                console.log("Error: ", error)
+                break
+            }
+        } catch (error) {
+            console.log("API Error: ", error)
+            // return dataArray;
+            break
         }
-    } catch (error) {
-        console.log("API Error: ",error)
-        return dataArray;
     }
 
     return dataArray
