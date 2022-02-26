@@ -10,7 +10,6 @@ import {apiPath} from '../utilities'
 function UIComponents() {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [userStatuses, setUserStatuses] = useState([]);
     const [replies, setReplies] = useState([])
     const [onlyStatuses, setOnlyStatuses] = useState([])
     const [hashTags, setHashTags] = useState([])
@@ -22,7 +21,7 @@ function UIComponents() {
     const getData = async () => {
 
         let apiRoute = `${apiPath}/statuses`
-        if(screenName != undefined || screenName != ""){
+        if(screenName !== undefined || screenName !== ""){
             apiRoute = `${apiPath}/statuses/${screenName}`
         }
         setIsLoading(true)
@@ -34,7 +33,6 @@ function UIComponents() {
                 const prevDates = lastSevenDates();
                 data = data.filter(item => prevDates.includes(formatDate(item.created_at)));
 
-                setUserStatuses(data)
                 let replies = [];
                 let statuses = [];
                 let hashTags = [];
@@ -76,7 +74,7 @@ function UIComponents() {
                 });
 
                 prevDates.forEach((element) => {
-                    const result = intersection.find(el => element == el[0])
+                    const result = intersection.find(el => element === el[0])
                     if (!result) {
                         intersection.push([
                             element, 0
@@ -96,8 +94,8 @@ function UIComponents() {
             })
     }
 
-    useEffect(async () => {
-          await getData()
+    useEffect(() => {
+          getData()
     }, []);
 
     const searchUser = (event) => {

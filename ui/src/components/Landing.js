@@ -14,19 +14,13 @@ function Landing() {
   const { auth, setAuth } = useAuth()
 
   // const apiPath = "http://192.168.0.104:3001/api"
-  const [user, setUser] = useState()
-
   useEffect(() => {
     const userSource = localStorage.getItem("user")
     if (userSource) {
-      const userObj = JSON.parse(userSource)
       setAuth(true)
-      setUser(userSource)
     } else {
       setAuth(false)
-      console.log(auth)
     }
-    console.log(auth)
   }, [auth])
 
 
@@ -50,7 +44,6 @@ function Landing() {
           localStorage.setItem("user", JSON.parse(data.user))
 
           setAuth(true)
-          setUser(data.user)
           navigate("/dashboard", { replace: true });
 
         } catch (error) {
@@ -83,7 +76,7 @@ function Landing() {
   }
   return (
     <React.Fragment>
-      <Nav />
+      <Nav login={handleLogin}/>
       <div className='flex flex-col px-3 sm:grid grid-cols-1 sm:grid-cols-2 sm:m-auto w-full sm:w-4/5 mt-8 sm:mt-8'>
         <div className=''>
           <p className='text-4xl font-bold text-gray-700'>Stalk Your Favourite Tweep</p>

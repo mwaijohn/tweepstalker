@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-function Nav() {
+function Nav({login}) {
     const [showSignOut, setShowSignOut] = useState(false)
     const [authed, setAuthed] = useState()
     const [user, setUser] = useState()
@@ -43,7 +43,7 @@ function Nav() {
                     </div>
                     <div className="hidden md:flex items-center space-x-3 ">
                         {
-                            authed ? <> <a href="" className="py-2 px-2 font-medium text-gray-500 transition duration-300">{user.name}</a>
+                            authed ? <> <a className="py-2 px-2 font-medium text-gray-500 transition duration-300">{user.name}</a>
                                 <button type="button" data-modal-toggle="small-modal" onClick={() => setShowSignOut(!showSignOut)}>
                                     <span className="sr-only">Open user menu</span>
                                     <img src={user.profile_image_url} alt="Logo" className="h-8 w-8 border mr-2 rounded-full" />
@@ -52,7 +52,7 @@ function Nav() {
                                     showSignOut && <DropDown logout={logout} />
                                 }
                             </>
-                                : <><a href="" className="py-2 px-2 font-medium text-gray-500 rounded transition duration-300">Log In</a>
+                                : <><a onClick={login} className="py-2 px-2 font-medium text-gray-500 rounded transition duration-300">Log In</a>
                                     <img src="./img/avatar.png" alt="Logo" className="h-8 w-8 border mr-2 rounded-full" /></>
                         }
                     </div>
