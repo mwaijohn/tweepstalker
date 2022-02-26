@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Nav from './Nav'
 
 import UIComponents from './UIComponents'
@@ -8,7 +8,6 @@ function DashBoard() {
   return (
     <React.Fragment>
       <Nav />
-      <br></br>
       <UIComponents />
       <Footer />
     </React.Fragment>

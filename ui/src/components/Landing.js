@@ -22,7 +22,7 @@ function Landing() {
       const userObj = JSON.parse(userSource)
       setAuth(true)
       setUser(userSource)
-      console.log(auth)
+      console.log(auth,"klkl")
       console.log(userObj)
     } else {
       setAuth(false)
@@ -59,7 +59,7 @@ function Landing() {
         }
       }
     })();
-  }, [auth])
+  }, [])
 
   const handleLogin = () => {
     (async () => {

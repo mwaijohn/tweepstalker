@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import { useNavigate } from 'react-router-dom'
-
 function Nav() {
     const [showSignOut, setShowSignOut] = useState(false)
     const [authed, setAuthed] = useState()
@@ -35,12 +33,12 @@ function Nav() {
                 <div className="flex justify-between">
                     <div className="flex space-x-7">
                         <div>
-                            <a href="#" className="flex items-center py-4 px-2">
+                            <a href="/" className="flex items-center py-4 px-2">
                                 <span className="font-semibold text-gray-500 text-lg">TweepStalker</span>
                             </a>
                         </div>
                         <div className="hidden md:flex items-center space-x-1">
-                            <a href="" className="py-4 px-2 text-green-500 border-b-4 border-green-500 font-semibold ">Home</a>
+                            <a href="/" className="py-4 px-2 text-green-500 border-b-4 border-green-500 font-semibold ">Home</a>
                         </div>
                     </div>
                     <div className="hidden md:flex items-center space-x-3 ">
@@ -54,7 +52,7 @@ function Nav() {
                                     showSignOut && <DropDown logout={logout} />
                                 }
                             </>
-                                : <><a href="" className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 transition duration-300">Log In</a>
+                                : <><a href="" className="py-2 px-2 font-medium text-gray-500 rounded transition duration-300">Log In</a>
                                     <img src="./img/avatar.png" alt="Logo" className="h-8 w-8 border mr-2 rounded-full" /></>
                         }
                     </div>

@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Landing from './components/Landing';
 import DashBoard from './components/Dashboard';
 import RequireAuth from './components/RequireAuth';
+import FourOFour from './components/404';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       }
       />
       <Route exact path="/" element={<Landing />} />
+      <Route exact path="*" element={<FourOFour />} />
     </Routes>
   );
 }

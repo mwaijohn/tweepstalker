@@ -84,12 +84,6 @@ function UIComponents() {
                     }
                 })
 
-                
-                console.log("groups", groups)
-                console.log("groupedArray", groupedArrays)
-                console.log("groupedArrayIntersection", intersection)
-
-
                 setReplies(replies)
                 setOnlyStatuses(statuses)
                 const uniqueTags = [...new Set(hashTags)]
@@ -121,7 +115,7 @@ function UIComponents() {
     const getScreenName = (e) => setScreenName(e.target.value)
 
     return (
-        <main>
+        <main className='mt-2'>
             <SearchTweep searchUser={searchUser} getScreenName={getScreenName} />
             <StatCards statuses={onlyStatuses} replies={replies} isLoading={isLoading}/>
             <StreakLineChart streak={tweetingStreak} />
