@@ -56,7 +56,7 @@ export const dateToTimestamp = (strDate) => {
     return datum / 1000;
 }
 
-// export const apiPath = "https://agitated-goldwasser-99cad0.netlify.app/.netlify/functions/api"
-
-export const apiPath = "http://localhost:3001/api"
+export const apiPath = "https://agitated-goldwasser-99cad0.netlify.app/.netlify/functions/api"
+// export const apiPath = "http://localhost:9000/.netlify/functions/api"
+// export const apiPath = "http://localhost:3001/api"
 
