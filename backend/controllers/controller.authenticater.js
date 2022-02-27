@@ -27,10 +27,8 @@ const requestAuthToken = async (req, res) => {
     try {
         const { oauth_token, oauth_token_secret } = await oauth.getOAuthRequestToken();
         tokens[oauth_token] = { oauth_token_secret };
-
         res.json({ oauth_token });
     } catch (error) {
-        // res.status(error.response.status)
         res.json({ "msg": error });
     }
 
@@ -39,13 +37,11 @@ const requestAuthToken = async (req, res) => {
 const requestAccessTokens = async (req, res) => {
     const { oauth_token, oauth_verifier } = req.body;
     try {
-        // console.log(oauth_token,oauth_token_secret);
 
         const oauth_token_secret = tokens[oauth_token].oauth_token_secret;
-        console.log(oauth_token, oauth_verifier)
+
         const { oauth_access_token, oauth_access_token_secret } = await oauth.getOAuthAccessToken(oauth_token, oauth_token_secret, oauth_verifier);
         tokens[oauth_token] = { ...tokens[oauth_token], oauth_access_token, oauth_access_token_secret };
-        console.log("access_token", oauth_access_token, oauth_access_token_secret)
 
         const response = await oauth.getProtectedResource("https://api.twitter.com/1.1/account/verify_credentials.json", "GET", oauth_access_token, oauth_access_token_secret);
 
@@ -59,10 +55,8 @@ const requestAccessTokens = async (req, res) => {
 
         const accessToken = generateAccessToken(user)
         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
-        // refreshTokens.push(refreshToken)
 
         res.json({ accessToken: accessToken, refreshToken: refreshToken, user: JSON.stringify(response.data) })
-        // res.json({ success: true, tokens: JSON.stringify(data) });
     } catch (error) {
         res.status(403).json({ message: `Missing access token ${error} ${JSON.stringify(req.body)} ${oauth_token} ${JSON.stringify(tokens)}` });
     }
@@ -75,10 +69,7 @@ const apiGetStatuses = async (req, res) => {
         // console.log(access_token, access_token_secret)
         const username = req.params.username || JSON.parse(user).screen_name;
 
-        console.log(JSON.parse(user).screen_name)
-        // construct twitter client
         let client = twitterClient(access_token, access_token_secret);
-        console.log(username)
         let data = await getStatuses(username, client)
 
         res.json(data);

@@ -43,10 +43,10 @@ function Nav({login}) {
                     </div>
                     <div className="hidden md:flex items-center space-x-3 ">
                         {
-                            auth === true ? <> <a className="py-2 px-2 font-medium text-gray-500 transition duration-300">{user.name}</a>
+                            auth === true ? <> <a className="py-2 px-2 font-medium text-gray-500 transition duration-300">{user?.name}</a>
                                 <button type="button" data-modal-toggle="small-modal" onClick={() => setShowSignOut(!showSignOut)}>
                                     <span className="sr-only">Open user menu</span>
-                                    <img src={user.profile_image_url} alt="Logo" className="h-8 w-8 border mr-2 rounded-full" />
+                                    <img src={user?.profile_image_url} alt="Logo" className="h-8 w-8 border mr-2 rounded-full" />
                                 </button>
                                 {
                                     showSignOut && <DropDown logout={logout} />
