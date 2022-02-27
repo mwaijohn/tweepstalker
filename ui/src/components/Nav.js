@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react'
+import useAuth from '../hooks/UseAuth';
 
 function Nav({login}) {
     const [showSignOut, setShowSignOut] = useState(false)
-    const [authed, setAuthed] = useState()
     const [user, setUser] = useState()
-
+    const { auth, setAuth } = useAuth()
     useEffect(() => {
         const userSource = localStorage.getItem("user")
         if (userSource) {
             const userObj = JSON.parse(userSource)
-            setAuthed(true)
+            setAuth(true)
             setUser(userObj)
         } else {
-            setAuthed(false)
+            setAuth(false)
         }
-    }, [authed])
+    }, [auth])
 
     const logout = () => {
         localStorage.clear()
-        // navigate("http://localhost:3000/")
         window.location = "/"
     }
 
@@ -43,7 +42,7 @@ function Nav({login}) {
                     </div>
                     <div className="hidden md:flex items-center space-x-3 ">
                         {
-                            authed ? <> <a className="py-2 px-2 font-medium text-gray-500 transition duration-300">{user.name}</a>
+                            auth ? <> <a className="py-2 px-2 font-medium text-gray-500 transition duration-300">{user.name}</a>
                                 <button type="button" data-modal-toggle="small-modal" onClick={() => setShowSignOut(!showSignOut)}>
                                     <span className="sr-only">Open user menu</span>
                                     <img src={user.profile_image_url} alt="Logo" className="h-8 w-8 border mr-2 rounded-full" />
@@ -77,7 +76,7 @@ function Nav({login}) {
                 <ul className="">
                     <li className="active"><a href="index.html" className="block text-sm px-2 py-4 text-white bg-green-500 font-semibold">Home</a></li>
                     {
-                        authed && <li className="active"><a href="index.html" className="block text-sm px-2 py-4 text-white bg-green-500 font-semibold" onClick={logout}>Sign Out</a></li>
+                        auth && <li className="active"><a href="index.html" className="block text-sm px-2 py-4 text-white bg-green-500 font-semibold" onClick={logout}>Sign Out</a></li>
                     }
                 </ul>
             </div>
