@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { generateAccessToken } = require('../utilities')
-var twitterClient = require('../src/twitterclient')
+const twitterClient = require('../src/twitterclient')
 var getStatuses = require('../src/client')
 
 
@@ -23,19 +23,26 @@ const authenticateToken = (req, res, next) => {
 
 //OAuth Step 1
 const requestAuthToken = async (req, res) => {
-    const { oauth_token, oauth_token_secret } = await oauth.getOAuthRequestToken();
-    tokens[oauth_token] = { oauth_token_secret };
 
-    res.json({ oauth_token });
+    try {
+        const { oauth_token, oauth_token_secret } = await oauth.getOAuthRequestToken();
+        tokens[oauth_token] = { oauth_token_secret };
+
+        res.json({ oauth_token });
+    } catch (error) {
+        // res.status(error.response.status)
+        res.json({ "msg": error });
+    }
+
 }
 
 const requestAccessTokens = async (req, res) => {
     const { oauth_token, oauth_verifier } = req.body;
     try {
         // console.log(oauth_token,oauth_token_secret);
-       
+
         const oauth_token_secret = tokens[oauth_token].oauth_token_secret;
-        console.log(oauth_token,oauth_verifier)
+        console.log(oauth_token, oauth_verifier)
         const { oauth_access_token, oauth_access_token_secret } = await oauth.getOAuthAccessToken(oauth_token, oauth_token_secret, oauth_verifier);
         tokens[oauth_token] = { ...tokens[oauth_token], oauth_access_token, oauth_access_token_secret };
         console.log("access_token", oauth_access_token, oauth_access_token_secret)

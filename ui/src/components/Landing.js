@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import Nav from './Nav';
@@ -6,7 +6,7 @@ import Footer from './Footer';
 import screenshot from '../screenshot.png'
 import queryString from 'query-string';
 import useAuth from '../hooks/UseAuth';
-import {apiPath} from '../utilities'
+import { apiPath } from '../utilities'
 
 function Landing() {
 
@@ -60,14 +60,10 @@ function Landing() {
           url: `${apiPath}/twitter/oauth/request_token`,
           method: 'POST'
         });
-        // await axios({
-        //   url: `${apiPath}/home`,
-        //   method: 'GET'
-        // });
         // return
         const { oauth_token } = response.data;
         //Oauth Step 2
-       window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
+        window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
       } catch (error) {
         console.error(error);
       }
@@ -76,7 +72,7 @@ function Landing() {
   }
   return (
     <React.Fragment>
-      <Nav login={handleLogin}/>
+      <Nav login={handleLogin} />
       <div className='flex flex-col px-3 sm:grid grid-cols-1 sm:grid-cols-2 sm:m-auto w-full sm:w-4/5 mt-8 sm:mt-8'>
         <div className=''>
           <p className='text-4xl font-bold text-gray-700'>Stalk Your Favourite Tweep</p>
