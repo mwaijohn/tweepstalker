@@ -60,8 +60,13 @@ function Landing() {
           url: `${apiPath}/twitter/oauth/request_token`,
           method: 'POST'
         });
+        // const response = await axios({
+        //   url: `${apiPath}/home`,
+        //   method: 'POST'
+        // });
         // return
         const { oauth_token } = response.data;
+        console.log(response)
         //Oauth Step 2
         window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
       } catch (error) {
