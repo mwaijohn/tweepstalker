@@ -44,7 +44,7 @@ function Landing() {
           localStorage.setItem("user", JSON.parse(data.user))
 
           setAuth(true)
-          navigate("/dashboard", { replace: true });
+          navigate("/", { replace: true });
 
         } catch (error) {
         }
