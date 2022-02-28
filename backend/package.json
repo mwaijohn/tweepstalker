@@ -2,10 +2,10 @@
   "name": "backend",
   "version": "0.0.0",
   "private": true,
-  "main": "./server/api-background.js",
+  "main": "./server/api.js",
   "scripts": {
-    "start": "./node_modules/.bin/netlify-lambda serve server",
-    "build": "./node_modules/.bin/netlify-lambda build server"
+    "start": "./node_modules/.bin/netlify-lambda serve server --timeout 120",
+    "build": "./node_modules/.bin/netlify-lambda build server --timeout 120"
   },
   "dependencies": {
     "axios": "^0.25.0",
