@@ -1,7 +1,6 @@
 import React from 'react'
 
 function SearchTweep({ getScreenName, searchUser }) {
-
     return (
         <React.Fragment>
             <form className='w-full flex flex-wrap justify-center my-2' onSubmit={searchUser} >

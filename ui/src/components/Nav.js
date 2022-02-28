@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import useAuth from '../hooks/UseAuth';
+import logo from '../logo.png'
 
 function Nav({login}) {
     const [showSignOut, setShowSignOut] = useState(false)
@@ -34,6 +35,7 @@ function Nav({login}) {
                     <div className="flex space-x-7">
                         <div>
                             <a href="/" className="flex items-center py-4 px-2">
+                            <img src={logo} alt="Logo" class="h-8 w-8 mr-2" />
                                 <span className="font-semibold text-gray-500 text-lg">TweepStalker</span>
                             </a>
                         </div>

@@ -115,7 +115,7 @@ function UIComponents() {
     return (
         <main className='mt-2'>
             <SearchTweep searchUser={searchUser} getScreenName={getScreenName} />
-            <StatCards statuses={onlyStatuses} replies={replies} isLoading={isLoading}/>
+            <StatCards statuses={onlyStatuses} replies={replies} isLoading={isLoading} screenName={screenName}/>
             <StreakLineChart streak={tweetingStreak} />
             <TagsSection tags={hashTags} />
         </main>
