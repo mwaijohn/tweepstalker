@@ -4,8 +4,8 @@
   "private": true,
   "main": "./server/api.js",
   "scripts": {
-    "start": "./node_modules/.bin/netlify-lambda serve server --timeout 120",
-    "build": "./node_modules/.bin/netlify-lambda build server --timeout 120"
+    "start": "./node_modules/.bin/netlify-lambda serve server",
+    "build": "./node_modules/.bin/netlify-lambda build server"
   },
   "dependencies": {
     "axios": "^0.25.0",
