@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv');
 dotenv.config();
-const port = 8080
+const port = 3000
 
 const cors = require('cors');
 
