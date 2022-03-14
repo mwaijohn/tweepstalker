@@ -15,6 +15,6 @@ var apiRouter = require('../routes/router.api');
 app.use(`/api`, apiRouter);
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`app listening on port ${port}`)
 })
 
