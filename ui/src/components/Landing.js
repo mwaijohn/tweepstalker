@@ -68,7 +68,7 @@ function Landing() {
         const { oauth_token } = response.data;
         console.log(response)
         //Oauth Step 2
-        // window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
+        window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
       } catch (error) {
         console.error(error);
       }
